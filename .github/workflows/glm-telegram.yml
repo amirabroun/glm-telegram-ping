@@ -1,0 +1,26 @@
+name: glm-telegram-ping
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "2-59/5 * * * *"
+
+permissions:
+  contents: read
+
+jobs:
+  ping:
+    runs-on: ubuntu-latest
+    timeout-minutes: 3
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Ask GLM and send to Telegram
+        run: python3 ping.py
+        env:
+          GLM_API_KEY: ${{ secrets.GLM_API_KEY }}
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+          # Tunables — defaults live in ping.py; override here if needed:
+          # GLM_ENDPOINT: https://api.z.ai/api/coding/paas/v4/chat/completions
+          # GLM_MODEL: glm-4.6
