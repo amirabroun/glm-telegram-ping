@@ -3,7 +3,7 @@ name: glm-telegram-ping
 on:
   workflow_dispatch:
   schedule:
-    - cron: "2-59/5 * * * *"  # avoid :00 hour-start congestion
+    - cron: "13,43 * * * *"  # every 30 min, off the :00/:30 congestion
 
 permissions:
   contents: read
